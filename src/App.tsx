@@ -104,12 +104,12 @@ function AuthScreen({ onSuccess }: { onSuccess: () => void }) {
       <img
         src="/auth-key-bg.png"
         alt=""
-        className="pointer-events-none absolute inset-0 m-auto h-full max-h-[100dvh] w-full max-w-[min(100vw,720px)] object-contain object-center"
+        className="pointer-events-none absolute inset-x-0 top-0 m-auto h-full max-h-[100dvh] w-full max-w-[min(100vw,720px)] object-contain object-top pt-[max(2vh,16px)]"
       />
 
       <form
         onSubmit={onSubmit}
-        className="relative z-10 mt-[min(70vh,500px)] flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-neutral-200/90 bg-white/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-sm"
+        className="relative z-10 mt-[min(50vh,400px)] flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-neutral-200/90 bg-white/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-sm"
       >
         <label
           id="auth-label"
