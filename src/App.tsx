@@ -1,7 +1,8 @@
-import { useCallback, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 const STARBUCKS_URL = 'https://www.starbucks.co.jp/'
+const PASSPHRASE = 'shohei'
 
 const COVER_PROMPT = '本日もお仕事に向かうスーパーマンへ'
 
@@ -63,6 +64,90 @@ function LinedPaper({
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 w-3 border-r border-red-300/25 bg-gradient-to-r from-red-100/20 to-transparent" />
       <div className="relative px-5 pb-6 pt-7 pl-9">{children}</div>
+    </div>
+  )
+}
+
+function AuthScreen({ onSuccess }: { onSuccess: () => void }) {
+  const [value, setValue] = useState('')
+  const [error, setError] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  const tryAuth = useCallback(() => {
+    if (value.trim() === PASSPHRASE) {
+      setError(false)
+      onSuccess()
+      return
+    }
+    setError(true)
+  }, [value, onSuccess])
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      tryAuth()
+    },
+    [tryAuth],
+  )
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[var(--app-page-bg)] px-5"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="auth-label"
+    >
+      <img
+        src="/auth-key-bg.png"
+        alt=""
+        className="pointer-events-none absolute inset-0 m-auto h-full max-h-[100dvh] w-full max-w-[min(100vw,720px)] object-contain object-center"
+      />
+
+      <form
+        onSubmit={onSubmit}
+        className="relative z-10 mt-[min(28vh,220px)] flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-neutral-200/90 bg-white/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-sm"
+      >
+        <label
+          id="auth-label"
+          htmlFor="passphrase"
+          className="text-left text-sm font-medium leading-snug text-neutral-800"
+        >
+          Put your first name here in English (小文字)
+        </label>
+        <input
+          ref={inputRef}
+          id="passphrase"
+          name="passphrase"
+          type="text"
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck={false}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value)
+            setError(false)
+          }}
+          className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-base text-neutral-900 outline-none ring-sky-400/40 transition focus:border-sky-400 focus:ring-2"
+          aria-invalid={error}
+          aria-describedby={error ? 'auth-error' : undefined}
+        />
+        {error && (
+          <p id="auth-error" className="text-sm text-red-600" role="alert">
+            合言葉が正しくありません。
+          </p>
+        )}
+        <button
+          type="submit"
+          className="mt-1 w-full rounded-lg bg-neutral-900 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
+        >
+          進む
+        </button>
+      </form>
     </div>
   )
 }
@@ -146,6 +231,7 @@ function NoteMessage({ onOpenGift }: { onOpenGift: () => void }) {
 }
 
 export default function App() {
+  const [authed, setAuthed] = useState(false)
   const [open, setOpen] = useState(false)
   const [innerPage, setInnerPage] = useState<'note' | 'gift'>('note')
   const reduceMotion = useReducedMotion()
@@ -170,8 +256,10 @@ export default function App() {
       className="relative min-h-[100dvh] overflow-hidden"
       style={{ fontFamily: "'Klee One', ui-sans-serif, system-ui, sans-serif" }}
     >
+      {!authed && <AuthScreen onSuccess={() => setAuthed(true)} />}
+
       <AnimatePresence mode="wait">
-        {!open && (
+        {authed && !open && (
           <motion.button
             type="button"
             key="cover"
@@ -232,7 +320,7 @@ export default function App() {
       </AnimatePresence>
 
       <AnimatePresence mode="wait">
-        {open && innerPage === 'note' && (
+        {authed && open && innerPage === 'note' && (
           <motion.div
             key="scene-note"
             role="presentation"
@@ -264,7 +352,7 @@ export default function App() {
             </div>
           </motion.div>
         )}
-        {open && innerPage === 'gift' && (
+        {authed && open && innerPage === 'gift' && (
           <GiftPage key="scene-gift" reduceMotion={!!reduceMotion} />
         )}
       </AnimatePresence>
