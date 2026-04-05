@@ -109,7 +109,7 @@ function AuthScreen({ onSuccess }: { onSuccess: () => void }) {
 
       <form
         onSubmit={onSubmit}
-        className="relative z-10 mt-[min(40vh,350px)] flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-neutral-200/90 bg-white/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-sm"
+        className="relative z-10 mt-[min(50vh,400px)] flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-neutral-200/90 bg-white/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-sm"
       >
         <label
           id="auth-label"
