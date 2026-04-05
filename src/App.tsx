@@ -7,7 +7,7 @@ const PASSPHRASE = 'shohei'
 const COVER_PROMPT = '本日もお仕事に向かうスーパーマンへ'
 
 const NOTE_LINES = `毎日、遅くまでお仕事頑張っててすごいし尊敬する🫡
-あと4回寝たら華金❗️ファイトだ！！You've got this!!
+あと3回寝たら華金❗️ファイトだ！！You've got this!!
 私も勉強がんばるよーー😤`
 
 function TypewriterBlock({
@@ -116,7 +116,7 @@ function AuthScreen({ onSuccess }: { onSuccess: () => void }) {
           htmlFor="passphrase"
           className="text-left text-sm font-medium leading-snug text-neutral-800"
         >
-          Put your first name here in English (小文字)
+          Put your first name here in English (Lowercase)
         </label>
         <input
           ref={inputRef}
