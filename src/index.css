@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+:root {
+  --app-page-bg: #ffffff;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background-color: var(--app-page-bg);
+}
