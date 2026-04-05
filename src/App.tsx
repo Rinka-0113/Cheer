@@ -4,10 +4,10 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 const STARBUCKS_URL = 'https://www.starbucks.co.jp/'
 const PASSPHRASE = 'shohei'
 
-const COVER_PROMPT = '本日もお仕事に向かうスーパーマンへ'
+const COVER_PROMPT = '本日もお仕事頑張ってるスーパーマンさんへ💪'
 
 const NOTE_LINES = `毎日、遅くまでお仕事頑張っててすごいし尊敬する🫡
-あと3回寝たら華金❗️ファイトだ！！You've got this!!
+あと4回寝たら華金❗️ファイトだ！！You've got this!!
 私も勉強がんばるよーー😤`
 
 function TypewriterBlock({
