@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 const STARBUCKS_URL = 'https://wogi.gifts/redeem/4YoQcyRJkURUhtS-iMyk6mzm-jyHoWWscZaoD4KCtwoy-VrqBbizKsDi24Beqm8w/activate'
 const PASSPHRASE = 'shohei'
 
-const COVER_PROMPT = `本日もお仕事頑張ってる
+const COVER_PROMPT = `本日もお仕事に向かってる
 スーパーマンさんへ💪`
 
 const NOTE_LINES = `毎日、遅くまでお仕事頑張っててすごいし尊敬する🫡
