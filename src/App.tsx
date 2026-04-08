@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 const STARBUCKS_URL = 'https://wogi.gifts/redeem/4YoQcyRJkURUhtS-iMyk6mzm-jyHoWWscZaoD4KCtwoy-VrqBbizKsDi24Beqm8w/activate'
-const PASSPHRASE = 'shohei'
+const PASSPHRASE = 'r'
 
 const COVER_PROMPT = `本日もお仕事に向かってる
 スーパーマンさんへ💪`
